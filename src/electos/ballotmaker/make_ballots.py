@@ -1,6 +1,9 @@
+import logging
 from pathlib import Path
 
-from electos.ballotmaker.constants import NO_ERRORS, NO_FILE
+from electos.ballotmaker.election_data import ElectionData
+
+log = logging.getLogger(__name__)
 
 
 def make_ballots(
@@ -13,9 +16,7 @@ def make_ballots(
         Output directory for generated PDF files
         Styles file for ballot formatting
     """
-    # is the EDF a JSON file?
-    if _edf is None:
-        return NO_FILE
     # was a valid output directory provided?
-    # was a styles file provided?
-    return NO_ERRORS
+    # was a styles file provided
+    election_data = ElectionData(_edf)
+    return election_data.edf_error
